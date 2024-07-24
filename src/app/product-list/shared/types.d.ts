@@ -1,6 +1,6 @@
 export interface ProductListResponse {
   products: Product[]
-  metadata: Metadata
+  metadata: Metadata | null
   count: number
   total: number
 }

@@ -11,7 +11,12 @@
 </div>
 
 @if (products | async; as p) {
-  @for (product of p.products; track product) {
-    <div>{{product.name}}</div>
+  @if (p.kind === "ok") {
+    @for (product of p.value.products; track product) {
+      <div>{{product.name}}</div>
+    }
+  }
+  @if (p.kind === "error") {
+    <div>Error: {{p.error}}</div>
   }
 }
