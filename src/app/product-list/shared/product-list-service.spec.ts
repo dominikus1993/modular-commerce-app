@@ -6,6 +6,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { firstValueFrom } from 'rxjs';
 
 describe('ProductListServiceService', () => {
+  const baseUrl = "http://localhost:5011";
   let service: ProductListService;
   let mockHttpClient: HttpTestingController;
   beforeEach(() => {
@@ -13,7 +14,7 @@ describe('ProductListServiceService', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: "BASE_API_URL", useValue: "http://localhost:5011"},
+        { provide: "BASE_API_URL", useValue: baseUrl},
         ProductListService
       ]
   });
@@ -31,7 +32,7 @@ describe('ProductListServiceService', () => {
     const result$ = service.getProducts();
     const res = firstValueFrom(result$);
 
-    const req = mockHttpClient.expectOne('http://localhost:5011/catalog?page=1&pageSize=10');
+    const req = mockHttpClient.expectOne(`${baseUrl}/catalog?page=1&pageSize=10`);
     expect(req.request.method).toBe('GET');
     req.flush(mockResponse);
 
@@ -43,7 +44,7 @@ describe('ProductListServiceService', () => {
     const result$ = service.getProducts();
     const res = firstValueFrom(result$);
 
-    const req = mockHttpClient.expectOne('http://localhost:5011/catalog?page=1&pageSize=10');
+    const req = mockHttpClient.expectOne(`${baseUrl}/catalog?page=1&pageSize=10`);
     expect(req.request.method).toBe('GET');
     req.error(new ProgressEvent('network error!'));
 
