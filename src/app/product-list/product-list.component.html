@@ -1,1 +1,13 @@
 <p>product-list works!</p>
+
+@if (isSuccess()) {
+  @for (item of productsList().products; track item) {
+    <h1>{{ item.name }}</h1>
+    <h2>{{ item.price }}</h2>
+    <p>{{ item.description }}</p>
+    <p>{{item.productId}}</p>
+  }
+}
+@else {
+  <p>There was an error loading the products</p>
+}
