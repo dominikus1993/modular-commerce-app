@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { ProductListComponent, ProductsInfo } from './product-list/product-list.component';
+import { PageSize, ProductListComponent, ProductsInfo } from './product-list/product-list.component';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +12,7 @@ import { ProductListComponent, ProductsInfo } from './product-list/product-list.
 })
 export class AppComponent {
   title = 'app';
-  pageSize = 12
+  pageSize: PageSize = 12
   info: ProductsInfo = { metadata: null, count: 0, total: 0 };
 
   public handleTotalProducts(meta: ProductsInfo) {

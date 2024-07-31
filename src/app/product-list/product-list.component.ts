@@ -11,6 +11,9 @@ export interface ProductsInfo {
   total: number;
 }
 
+
+export type PageSize = 12 | 24 | 48 | 96;
+
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -20,7 +23,7 @@ export interface ProductsInfo {
 })
 export class ProductListComponent {
   private productsService: ProductListService = inject(ProductListService);
-  @Input({required: true,})pageSize: number = 12 | 24 | 48 | 96;
+  @Input({required: true,})pageSize: PageSize = 12;
   @Input({required: true})page: number = 1;
   @Output() productsMetadata: EventEmitter<ProductsInfo> = new EventEmitter();
 
