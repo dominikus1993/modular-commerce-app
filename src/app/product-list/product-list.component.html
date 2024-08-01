@@ -1,9 +1,7 @@
 <p>product-list works!</p>
 
 @if (isSuccess()) {
-  @for (item of productsList().products; track item) {
-    <app-product-list-element [product]="item" />
-  }
+  <app-product-list-elements [products]="productsList()" />
 }
 @else {
   <p>There was an error loading the products</p>
