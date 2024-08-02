@@ -2,7 +2,9 @@
 
 @if (isSuccess()) {
   <app-product-list-elements [products]="productsList()" />
+  <mat-paginator [length]="productsListResult().total" [pageSize]="pageSize" [pageSizeOptions]="[12, 24, 48, 96]"></mat-paginator>
 }
 @else {
   <p>There was an error loading the products</p>
 }
+

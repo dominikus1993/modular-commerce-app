@@ -5,6 +5,7 @@ import { tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FilterMetadata } from './shared/types';
 import { ProductListElementsComponent } from "./product-list-elements/product-list-elements.component";
+import {MatPaginatorModule} from '@angular/material/paginator'
 
 export interface ProductsInfo {
   metadata: FilterMetadata | null;
@@ -18,14 +19,14 @@ export type PageSize = 12 | 24 | 48 | 96;
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [ProductListElementComponent, ProductListElementsComponent],
+  imports: [ProductListElementComponent, ProductListElementsComponent, MatPaginatorModule],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
 export class ProductListComponent {
   private productsService: ProductListService = inject(ProductListService);
-  private pageSize: PageSize = 12;
-  private page: number = 1;
+  public pageSize: PageSize = 12;
+  public page: number = 1;
 
   products = toSignal(this.getProducts(), {initialValue: { kind: "ok", value: { products: [], metadata: null, count: 0, total: 0 } }});
 
