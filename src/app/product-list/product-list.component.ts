@@ -5,7 +5,7 @@ import { tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FilterMetadata } from './shared/types';
 import { ProductListElementsComponent } from "./product-list-elements/product-list-elements.component";
-import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatPaginatorModule, PageEvent} from '@angular/material/paginator'
 
 export interface ProductsInfo {
   metadata: FilterMetadata | null;
@@ -55,5 +55,9 @@ export class ProductListComponent {
 
   getProducts() {
     return this.productsService.getProducts(null, this.page, this.pageSize);
+  }
+
+  onChangePage(event: PageEvent) {
+    console.log(event.pageIndex);
   }
 }
