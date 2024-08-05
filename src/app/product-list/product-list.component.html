@@ -1,8 +1,10 @@
 <p>product-list works!</p>
 
-@if (isSuccess()) {
-  <app-product-list-elements [products]="productsList()" />
-  <mat-paginator [length]="productsListResult().total" [pageSize]="pageSize" [pageSizeOptions]="[12, 24, 48, 96]" (page)="onChangePage($event)" ></mat-paginator>
+@if (products$ | async; as products) {
+  @if (products.kind == "ok") {
+    <app-product-list-elements [products]="products.value.products" />
+    <mat-paginator [length]="products.value.total" [pageSize]="pageSize" [pageSizeOptions]="[12, 24, 48, 96]" (page)="onChangePage($event)" ></mat-paginator>
+  }
 }
 @else {
   <p>There was an error loading the products</p>

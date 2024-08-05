@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output, Signal, computed, inject } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, Signal, computed, inject } from '@angular/core';
 import { ProductListElementComponent } from "./product-list-element/product-list-element.component";
 import { GetProductsResult, ProductListService } from './shared/product-list-service';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FilterMetadata } from './shared/types';
 import { ProductListElementsComponent } from "./product-list-elements/product-list-elements.component";
 import {MatPaginatorModule, PageEvent} from '@angular/material/paginator'
+import { AsyncPipe } from '@angular/common';
 
 export interface ProductsInfo {
   metadata: FilterMetadata | null;
@@ -19,7 +20,7 @@ export type PageSize = 12 | 24 | 48 | 96;
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [ProductListElementComponent, ProductListElementsComponent, MatPaginatorModule],
+  imports: [ProductListElementComponent, ProductListElementsComponent, MatPaginatorModule, AsyncPipe],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.scss'
 })
@@ -28,30 +29,8 @@ export class ProductListComponent {
   public pageSize: PageSize = 12;
   public page: number = 1;
 
-  products = toSignal(this.getProducts(), {initialValue: { kind: "ok", value: { products: [], metadata: null, count: 0, total: 0 } }});
+  products$: Observable<GetProductsResult> = this.getProducts()
 
-  isSuccess = computed(() => this.products().kind === "ok");
-
-  productsListResult = computed(() => {
-    const result = this.products();
-    if (result.kind === "ok") {
-      return result.value;
-    }
-    return { products: [], metadata: null, count: 0, total: 0 };
-  });
-
-  productsList = computed(() => {
-    const result = this.productsListResult();
-    return result.products;
-  });
-
-  errorMessage = computed(() => {
-    const result = this.products();
-    if (result.kind === "error") {
-      return result.error;
-    }
-    return "";
-  });
 
   getProducts() {
     return this.productsService.getProducts(null, this.page, this.pageSize);
@@ -59,5 +38,6 @@ export class ProductListComponent {
 
   onChangePage(event: PageEvent) {
     console.log(event.pageIndex);
+    console.log(event.pageSize);
   }
 }
