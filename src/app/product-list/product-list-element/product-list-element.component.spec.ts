@@ -20,4 +20,14 @@ describe('ProductListElementComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should return true if product is available', () => {
+    component.product = { availableQuantity: 1 } as any;
+    expect(component.isAvailable).toBe(true);
+  });
+
+  it('should return false if product is not available', () => {
+    component.product = { availableQuantity: 0 } as any;
+    expect(component.isAvailable).toBe(false);
+  });
 });

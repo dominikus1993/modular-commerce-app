@@ -10,4 +10,9 @@ import { Product } from '../shared/types';
 })
 export class ProductListElementComponent {
   @Input({required: true}) product!: Product;
+
+
+  get isAvailable() {
+    return this.product.availableQuantity > 0;
+  }
 }
