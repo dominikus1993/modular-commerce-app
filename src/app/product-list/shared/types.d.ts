@@ -5,6 +5,11 @@ export interface ProductListResponse {
   total: number
 }
 
+export interface ProductImage {
+  link: string
+  alt: string
+}
+
 export interface Product {
   productId: string
   name: string
@@ -12,6 +17,7 @@ export interface Product {
   promotionalPrice: number
   price: number
   availableQuantity: number
+  images: ProductImage[]
 }
 
 export interface FilterMetadata {

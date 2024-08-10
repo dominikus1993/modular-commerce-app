@@ -1,11 +1,12 @@
 <section class="listing">
   <img
     class="listing-photo"
-    [src]=""
+    [srcset]="mainImage.link"
     alt="Exterior photo of {{ product.name }}"
     crossorigin
   />
   <a [routerLink]="['/product', product.productId]">
   <h2 class="listing-heading">{{ product.name }}</h2></a>
   <p class="listing-price">{{ product.price }}</p>
+  <p>{{mainImage.link}}</p>
 </section>
